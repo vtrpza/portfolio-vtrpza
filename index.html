@@ -99,16 +99,24 @@
             margin: 0 auto;
             padding: 0 clamp(1rem, 4vw, 2rem);
         }
+        
+        /* Especialidades section specific container */
+        #especialidades .container {
+            max-width: 1500px;
+            padding: 0 clamp(1rem, 3vw, 1.5rem);
+        }
 
         /* Enhanced Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
             position: relative;
             overflow: hidden;
-            min-height: 100vh;
+            height: 100vh;
+            max-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 2rem 0;
         }
 
         .hero::before {
@@ -146,6 +154,299 @@
             }
         }
 
+        /* Profile Photo Section */
+        .hero-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .profile-photo-container {
+            position: relative;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 10px 30px rgba(139, 92, 246, 0.3));
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 10;
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #1e3c72 50%, #2a5298 75%, #8b5cf6 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            box-shadow: 
+                0 0 20px rgba(139, 92, 246, 0.4),
+                0 0 40px rgba(139, 92, 246, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .profile-photo:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 0 30px rgba(139, 92, 246, 0.6),
+                0 0 60px rgba(139, 92, 246, 0.4),
+                0 0 100px rgba(139, 92, 246, 0.2),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            33% { background-position: 100% 50%; }
+            66% { background-position: 50% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .profile-photo-border {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                var(--primary-purple) 0deg,
+                var(--primary-blue) 72deg,
+                var(--primary-yellow) 144deg,
+                #ff6b35 216deg,
+                #f7931e 288deg,
+                var(--primary-purple) 360deg
+            );
+            z-index: 2;
+            animation: 
+                rotate 12s linear infinite,
+                borderPulse 4s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .profile-photo-glow {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(139, 92, 246, 0.4) 0%,
+                rgba(59, 130, 246, 0.3) 25%,
+                rgba(245, 158, 11, 0.2) 50%,
+                transparent 70%
+            );
+            z-index: 1;
+            animation: 
+                pulse 4s ease-in-out infinite,
+                glowRotate 20s linear infinite;
+            opacity: 0.6;
+        }
+
+        /* Additional glow layers */
+        .profile-photo-container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            border-radius: 50%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(139, 92, 246, 0.1) 50%,
+                transparent 70%
+            );
+            z-index: 0;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .profile-photo-container::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            width: calc(100% + 50px);
+            height: calc(100% + 50px);
+            border-radius: 50%;
+            background: conic-gradient(
+                from 45deg,
+                transparent 0deg,
+                rgba(139, 92, 246, 0.05) 90deg,
+                transparent 180deg,
+                rgba(59, 130, 246, 0.05) 270deg,
+                transparent 360deg
+            );
+            z-index: 0;
+            animation: 
+                rotate 25s linear infinite reverse,
+                outerGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.6; 
+            }
+            50% { 
+                transform: scale(1.05); 
+                opacity: 0.8; 
+            }
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { 
+                opacity: 0.8; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.02); 
+            }
+        }
+
+        @keyframes glowRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.1); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: rotate(0deg); 
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: rotate(180deg); 
+            }
+        }
+
+        @keyframes outerGlow {
+            0%, 100% { 
+                opacity: 0.1; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 0.3; 
+                transform: scale(1.05); 
+            }
+        }
+
+        /* Interaction effects */
+        .profile-photo-container:hover .profile-photo-border {
+            animation-duration: 3s;
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .profile-photo-container:hover .profile-photo-glow {
+            animation-duration: 2s;
+            opacity: 0.9;
+            transform: scale(1.1);
+        }
+
+        .profile-photo-container:hover::before {
+            animation-duration: 1s;
+            opacity: 0.6;
+        }
+
+        .profile-photo-container:hover::after {
+            animation-duration: 8s;
+            opacity: 0.4;
+        }
+
+        /* Advanced effects */
+
+        /* Breathing effect */
+        @keyframes breathe {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.02);
+                filter: brightness(1.1);
+            }
+        }
+
+        .profile-photo-container:not(:hover) {
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        /* Magnetic hover effect */
+        .profile-photo-container:hover .profile-photo {
+            animation: magneticFloat 0.6s ease-out;
+        }
+
+        @keyframes magneticFloat {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.05) rotate(2deg); }
+            50% { transform: scale(1.1) rotate(-2deg); }
+            75% { transform: scale(1.08) rotate(3deg); }
+            100% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* Enhanced prismatic border effect */
+        .profile-photo-border {
+            animation: 
+                rotate 12s linear infinite,
+                borderPulse 4s ease-in-out infinite,
+                prismShift 8s ease-in-out infinite;
+        }
+
+        @keyframes prismShift {
+            0%, 100% { 
+                filter: hue-rotate(0deg) saturate(1);
+            }
+            25% { 
+                filter: hue-rotate(90deg) saturate(1.2);
+            }
+            50% { 
+                filter: hue-rotate(180deg) saturate(0.8);
+            }
+            75% { 
+                filter: hue-rotate(270deg) saturate(1.3);
+            }
+        }
+
+        /* Enhanced glow with color cycling */
+        .profile-photo-glow {
+            animation: 
+                pulse 4s ease-in-out infinite,
+                glowRotate 20s linear infinite,
+                colorCycle 6s ease-in-out infinite;
+        }
+
+        @keyframes colorCycle {
+            0% { filter: hue-rotate(0deg); }
+            33% { filter: hue-rotate(120deg); }
+            66% { filter: hue-rotate(240deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .hero-personal-info {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .hero-badge {
             display: inline-block;
             background: var(--glass-bg);
@@ -153,18 +454,35 @@
             border: 1px solid var(--glass-border);
             border-radius: 8px;
             padding: 0.5rem 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: 1.1rem;
             color: var(--theme-color);
             font-weight: 500;
-            opacity: 0;
-            animation: fadeIn 0.6s ease-out 0.2s both;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .location-icon {
+            font-size: 1rem;
         }
 
         .hero h1 {
-            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
-            margin-bottom: clamp(1rem, 3vw, 2rem);
+            margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
             color: var(--text-light);
             line-height: 1.1;
             letter-spacing: -0.01em;
@@ -176,18 +494,18 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--theme-color);
-            margin-bottom: clamp(0.75rem, 2vw, 1rem);
+            margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
             font-weight: 500;
             opacity: 0;
             animation: fadeIn 0.6s ease-out 0.6s both;
         }
 
         .hero-description {
-            font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             color: var(--text-gray);
-            margin-bottom: clamp(2rem, 4vw, 3rem);
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
             opacity: 0;
             animation: fadeIn 0.6s ease-out 0.8s both;
             line-height: 1.6;
@@ -199,8 +517,8 @@
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: clamp(2rem, 5vw, 4rem);
-            margin-bottom: clamp(2rem, 4vw, 3rem);
+            gap: clamp(1.5rem, 4vw, 3rem);
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
             opacity: 0;
             animation: fadeIn 0.6s ease-out 1s both;
             flex-wrap: wrap;
@@ -270,7 +588,7 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 2rem;
+            bottom: 1rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -519,12 +837,37 @@
         /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
             margin-top: 3rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
+        }
+        
+        /* Force 3x2 layout on desktop */
+        @media (min-width: 1025px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
         }
 
         .skill-card {
@@ -653,38 +996,1067 @@
         .comment { color: var(--text-gray); }
         .function { color: var(--primary-blue); }
 
-        /* Metrics */
-        .metrics {
+        /* Enhanced Approach Section */
+        #abordagem {
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, var(--bg-darker) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #abordagem::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            position: relative;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .process-step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+
+        .process-step:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue), var(--primary-yellow));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .process-icon {
+            font-size: 3rem;
+            background: var(--theme-color);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .process-content {
+            flex: 1;
+        }
+
+        .process-content h3 {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .process-content p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .process-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .process-tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--theme-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .process-connector {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary-purple), var(--primary-blue));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Enhanced Code Demo Section */
+        .code-demo-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-demo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue), var(--primary-yellow));
+        }
+
+        .code-demo-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .demo-header h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-header p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .demo-tab {
+            background: transparent;
+            color: var(--text-gray);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .demo-tab:hover::before {
+            left: 100%;
+        }
+
+        .demo-tab:hover {
+            color: var(--theme-color);
+            border-color: var(--theme-color);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .demo-tab.active {
+            background: var(--theme-color);
+            color: white;
+            border-color: var(--theme-color);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .demo-content {
+            position: relative;
+            min-height: 500px;
+        }
+
+        .demo-panel {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            visibility: hidden;
+        }
+
+        .demo-panel.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            position: relative;
+            visibility: visible;
+        }
+
+        .demo-panel.entering {
+            display: block;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            position: absolute;
+            visibility: hidden;
+        }
+
+        .demo-panel.entered {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            position: relative;
+            visibility: visible;
+        }
+
+        .code-editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: var(--bg-darker);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .code-editor-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(90deg, var(--bg-darker), rgba(59, 130, 246, 0.1), var(--bg-darker));
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            z-index: 1;
+        }
+
+        .code-editor-container::after {
+            content: '●●●';
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .code-editor {
+            background: var(--bg-darker);
+            padding: 3rem 1.5rem 1.5rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-editor::before {
+            content: 'code.js';
+            position: absolute;
+            top: 0;
+            right: 1rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .typing-indicator {
+            position: absolute;
+            top: 12px;
+            right: 4rem;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            animation: typing-pulse 2s infinite;
+        }
+
+        @keyframes typing-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .code-editor pre {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            white-space: pre-wrap;
+            margin: 0;
+            position: relative;
+        }
+
+        /* Syntax highlighting */
+        .code-editor .keyword {
+            color: var(--primary-purple);
+            font-weight: 600;
+        }
+
+        .code-editor .string {
+            color: var(--primary-yellow);
+        }
+
+        .code-editor .comment {
+            color: var(--text-gray);
+            font-style: italic;
+        }
+
+        .code-editor .function {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .code-editor .variable {
+            color: #10B981;
+        }
+
+        .code-editor .operator {
+            color: #F59E0B;
+        }
+
+        .code-editor .bracket {
+            color: #8B5CF6;
+        }
+
+        /* Code line numbers */
+        .code-line {
+            position: relative;
+            padding-left: 3rem;
+            display: block;
+            min-height: 1.6em;
+        }
+
+        .code-line::before {
+            content: counter(line-counter);
+            counter-increment: line-counter;
+            position: absolute;
+            left: 0;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            width: 2rem;
+            text-align: right;
+            opacity: 0.6;
+        }
+
+        .code-editor pre {
+            counter-reset: line-counter;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-preview {
+            background: var(--bg-dark);
+            padding: 3rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .code-preview::before {
+            content: 'Live Preview';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            background: linear-gradient(90deg, var(--bg-dark), rgba(16, 185, 129, 0.1), var(--bg-dark));
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .execution-indicator {
+            position: absolute;
+            top: 12px;
+            right: 1rem;
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: execution-pulse 3s infinite;
+        }
+
+        @keyframes execution-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .preview-header {
+            color: var(--theme-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .preview-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mock-dashboard {
+            background: var(--glass-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .mock-header {
+            background: var(--theme-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .mock-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .mock-card {
+            background: var(--bg-darker);
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .json-response {
+            background: var(--bg-darker);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--text-light);
+            overflow-x: auto;
+        }
+
+        .performance-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .perf-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .perf-metric:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10B981;
+        }
+
+        .perf-value {
+            color: #10B981;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Features */
+        .demo-features {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .demo-features h4 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: var(--bg-darker);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .feature-item.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--primary-purple);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-name {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Live Terminal */
+        .live-terminal {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #00ff00;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin: 0.2rem 0;
+            animation: typewriter 0.5s ease-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .terminal-line.show {
+            opacity: 1;
+        }
+
+        /* Ensure initial visibility for demo sections */
+        .demo-panel.active .terminal-line.show {
+            opacity: 1;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; opacity: 0; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1rem;
+            background: #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Mobile Responsive Fixes for Demo Section */
+        @media (max-width: 768px) {
+            .demo-content {
+                min-height: 400px;
+            }
+            
+            .code-editor-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+            
+            .code-editor, .code-preview {
+                padding: 1rem;
+            }
+            
+            .code-editor pre {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            .code-preview {
+                border-left: none;
+                border-top: 1px solid var(--glass-border);
+            }
+            
+            .demo-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .demo-tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .live-terminal {
+                font-size: 0.75rem;
+                max-height: 150px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .feature-item {
+                padding: 0.5rem;
+            }
+            
+            .feature-icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .demo-content {
+                min-height: 300px;
+            }
+            
+            .code-demo-section {
+                padding: 1rem;
+            }
+            
+            .code-editor-container::before,
+            .code-editor-container::after {
+                height: 30px;
+            }
+            
+            .code-editor, .code-preview {
+                padding: 2rem 0.5rem 0.5rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .perf-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .perf-value {
+            color: var(--theme-color);
+            font-weight: 600;
+        }
+
+        /* Tech Stack Showcase */
+        .tech-stack-showcase {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .tech-stack-showcase h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .tech-layers {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-layer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-layer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--theme-color);
+        }
+
+        .layer-label {
+            color: var(--theme-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .layer-techs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .tech-item {
+            background: var(--bg-darker);
+            color: var(--text-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--glass-border);
+            transition: all 0.2s ease;
+        }
+
+        .tech-item:hover {
+            background: var(--theme-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Metrics */
+        .metrics-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+            gap: 2rem;
             margin-top: 3rem;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .metric-card {
-            text-align: center;
-            padding: 2rem;
+        .metric-card-enhanced {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            transition: all 0.3s ease;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .metric-card-enhanced:hover::before {
+            left: 100%;
+        }
+
+        .metric-card-enhanced:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .metric-content {
+            text-align: center;
         }
 
         .metric-number {
             font-size: 3rem;
             font-weight: 800;
-            color: var(--theme-color);
+            color: var(--primary-purple);
             margin-bottom: 0.5rem;
             display: block;
+            background: linear-gradient(45deg, var(--primary-purple), var(--primary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .metric-label {
-            color: var(--text-gray);
+            color: var(--text-light);
             font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .metric-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+            border-radius: 2px;
+            width: 0;
+            transition: width 2s ease;
+        }
+
+        .metric-story {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 1rem;
+        }
+
+        /* Achievement Timeline (Results Section) */
+        .achievement-timeline {
+            margin-top: 4rem;
+            padding: 3rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .achievements-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .achievement-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--primary-purple);
+        }
+
+        .achievement-year {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .achievement-content h4 {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-content p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Performance Showcase */
+        .performance-showcase {
+            margin-top: 4rem;
+        }
+
+        .showcase-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .performance-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+
+        .performance-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        .perf-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .perf-metric {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .perf-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            display: block;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-yellow), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .perf-label {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .perf-description {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-top: 0.5rem;
+        }
+
+        .perf-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: auto;
+        }
+
+        .perf-status.excellent {
+            background: rgba(34, 197, 94, 0.1);
+            color: rgb(34, 197, 94);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .perf-status.perfect {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary-purple);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .perf-status.good {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--primary-yellow);
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
 
@@ -697,6 +2069,41 @@
             section {
                 padding: 1.5rem 1rem;
                 min-height: auto;
+            }
+            
+            .metrics-enhanced {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-number {
+                font-size: 2.5rem;
+            }
+            
+            .achievements-title, .showcase-title {
+                font-size: 1.5rem;
+            }
+            
+            .perf-number {
+                font-size: 2rem;
+            }
+            
+            .achievement-timeline {
+                margin-top: 2rem;
+                padding: 2rem 0;
+            }
+            
+            .performance-showcase {
+                margin-top: 2rem;
             }
             
             .hero {
@@ -718,6 +2125,53 @@
                 font-size: clamp(0.9rem, 3.5vw, 1rem);
                 margin-bottom: 2rem;
                 line-height: 1.5;
+            }
+            
+            .profile-photo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-photo-container {
+                filter: drop-shadow(0 8px 25px rgba(139, 92, 246, 0.25));
+            }
+            
+            .profile-photo-glow {
+                top: -15px;
+                left: -15px;
+                width: calc(100% + 30px);
+                height: calc(100% + 30px);
+            }
+            
+            .profile-photo-container::before {
+                top: -12px;
+                left: -12px;
+                width: calc(100% + 24px);
+                height: calc(100% + 24px);
+            }
+            
+            .profile-photo-container::after {
+                top: -18px;
+                left: -18px;
+                width: calc(100% + 36px);
+                height: calc(100% + 36px);
+            }
+            
+            .hero-profile {
+                margin-bottom: 1rem;
+            }
+            
+            .hero-badge {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .hero-title {
+                font-size: 1rem;
+            }
+            
+            .hero-location {
+                font-size: 0.85rem;
             }
             
             .hero-stats {
@@ -762,6 +2216,38 @@
             .section-title {
                 font-size: clamp(1.8rem, 6vw, 2.2rem);
                 margin-bottom: 2rem;
+            }
+            
+            /* Approach Section Mobile */
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .process-step:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .process-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            
+            .code-editor-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .code-preview {
+                border-left: none;
+                border-top: 1px solid var(--glass-border);
+            }
+            
+            .tech-layers {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
         
@@ -890,12 +2376,12 @@
             }
             
             .skills-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 3rem;
             }
             
             .metrics {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 3rem;
             }
             
@@ -1077,29 +2563,6 @@
         
         
         
-        /* Gesture Recognition Visual Feedback */
-        .gesture-feedback {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--theme-color);
-            border-radius: 20px;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-        
-        .gesture-feedback.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
         
         /* Utility classes */
         .text-center { text-align: center; }
@@ -1119,8 +2582,6 @@
     <div class="animated-background"></div>
     
     
-    <!-- Gesture Feedback -->
-    <div class="gesture-feedback" id="gestureFeedback">Gesto detectado!</div>
     
     <!-- Enhanced Hero Section -->
     <section class="hero" id="hero">
@@ -1131,7 +2592,23 @@
                     <span class="availability-text">Disponível para novos projetos</span>
                 </div>
                 
-                <div class="hero-badge">Desenvolvedor Fullstack Sênior</div>
+                <!-- Profile Photo Section -->
+                <div class="hero-profile">
+                    <div class="profile-photo-container">
+                        <img src="vitor-pouza.jpeg" alt="Vitor Pouza - Desenvolvedor Fullstack" class="profile-photo">
+                        <div class="profile-photo-border"></div>
+                        <div class="profile-photo-glow"></div>
+                    </div>
+                    
+                    <div class="hero-personal-info">
+                        <div class="hero-badge">Vitor Pouza</div>
+                        <div class="hero-title">Desenvolvedor Fullstack Sênior</div>
+                        <div class="hero-location">
+                            <span class="location-icon">📍</span>
+                            <span>Brasil • Remoto</span>
+                        </div>
+                    </div>
+                </div>
                 
                 <h1>Transformando Ideias em Soluções Digitais</h1>
                 
@@ -1297,54 +2774,417 @@
     <!-- Abordagem -->
     <section id="abordagem">
         <div class="container">
-            <h2 class="section-title">Minha Abordagem</h2>
-            <div class="glass-card">
-                <div class="code-showcase">
-                    <div class="code-content">
-                        <span class="code-line"><span class="keyword">const</span> <span class="function">minhaAbordagem</span> = {</span>
-                        <span class="code-line">  <span class="string">analise</span>: <span class="string">'Entendo profundamente o problema'</span>,</span>
-                        <span class="code-line">  <span class="string">planejamento</span>: <span class="string">'Arquitetura escalável e limpa'</span>,</span>
-                        <span class="code-line">  <span class="string">execucao</span>: <span class="string">'Código otimizado e testado'</span>,</span>
-                        <span class="code-line">  <span class="string">entrega</span>: <span class="string">'Resultados que superam expectativas'</span></span>
-                        <span class="code-line">};</span>
-                        <span class="code-line"></span>
-                        <span class="code-line"><span class="comment">// Transformo ideias complexas em soluções simples</span></span>
-                        <span class="code-line"><span class="comment">// Cada linha de código tem propósito e valor</span></span>
+            <div class="section-header">
+                <h2 class="section-title">Minha Abordagem</h2>
+                <p class="section-subtitle">Transformando ideias complexas em soluções elegantes através de metodologia comprovada</p>
+            </div>
+            
+            <!-- Interactive Development Process -->
+            <div class="process-flow">
+                <div class="process-step" data-step="1">
+                    <div class="process-icon">🔍</div>
+                    <div class="process-content">
+                        <h3>Análise & Descoberta</h3>
+                        <p>Entendo profundamente o problema, requisitos e objetivos do negócio</p>
+                        <div class="process-details">
+                            <span class="process-tag">Pesquisa de usuário</span>
+                            <span class="process-tag">Análise técnica</span>
+                            <span class="process-tag">Benchmarking</span>
+                        </div>
                     </div>
                 </div>
-                <div class="mt-2 text-center">
-                    <p><strong>Metodologia Ágil:</strong> Trabalho com sprints, entregas incrementais e feedback contínuo</p>
-                    <p><strong>Código Limpo:</strong> Seguindo princípios SOLID e melhores práticas de desenvolvimento</p>
-                    <p><strong>Colaboração:</strong> Experiência com equipes multidisciplinares e comunicação efetiva</p>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step" data-step="2">
+                    <div class="process-icon">🏗️</div>
+                    <div class="process-content">
+                        <h3>Arquitetura & Planejamento</h3>
+                        <p>Desenho arquiteturas escaláveis e escolho as melhores tecnologias</p>
+                        <div class="process-details">
+                            <span class="process-tag">Design System</span>
+                            <span class="process-tag">Database Design</span>
+                            <span class="process-tag">API Architecture</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step" data-step="3">
+                    <div class="process-icon">⚡</div>
+                    <div class="process-content">
+                        <h3>Desenvolvimento Ágil</h3>
+                        <p>Implementação iterativa com foco em qualidade e performance</p>
+                        <div class="process-details">
+                            <span class="process-tag">TDD/BDD</span>
+                            <span class="process-tag">CI/CD</span>
+                            <span class="process-tag">Code Review</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step" data-step="4">
+                    <div class="process-icon">🚀</div>
+                    <div class="process-content">
+                        <h3>Deploy & Otimização</h3>
+                        <p>Entrega contínua com monitoramento e otimização constante</p>
+                        <div class="process-details">
+                            <span class="process-tag">Performance</span>
+                            <span class="process-tag">Monitoring</span>
+                            <span class="process-tag">Scaling</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Interactive Code Playground -->
-            <div class="code-playground">
-                <div class="code-playground-header">
-                    <h3>🚀 Playground Interativo - Teste Meu Código</h3>
-                    <div class="code-playground-controls">
-                        <button class="code-playground-btn" onclick="runCode()">▶️ Executar</button>
-                        <button class="code-playground-btn" onclick="clearCode()">🗑️ Limpar</button>
-                        <button class="code-playground-btn" onclick="loadExample()">📋 Exemplo</button>
+            <!-- Enhanced Live Code Demonstration -->
+            <div class="code-demo-section">
+                <div class="demo-header">
+                    <h3>🎯 Demonstração Ao Vivo</h3>
+                    <p>Veja meu código em ação - exemplos reais dos projetos que desenvolvo com execução em tempo real</p>
+                </div>
+                
+                <div class="demo-tabs">
+                    <button class="demo-tab active" data-demo="react">React Component</button>
+                    <button class="demo-tab" data-demo="api">API Endpoint</button>
+                    <button class="demo-tab" data-demo="algorithm">Algorithm</button>
+                    <button class="demo-tab" data-demo="ai">AI Integration</button>
+                </div>
+                
+                <div class="demo-content">
+                    <div class="demo-panel active" id="react-demo">
+                        <div class="code-editor-container">
+                            <div class="code-editor">
+                                <div class="typing-indicator"></div>
+                                <pre><code class="language-jsx"><span class="code-line"><span class="comment">// Componente React com hooks avançados</span></span>
+<span class="code-line"><span class="keyword">const</span> <span class="function">UserDashboard</span> <span class="operator">=</span> <span class="bracket">(</span><span class="bracket">{</span> <span class="variable">user</span><span class="operator">,</span> <span class="variable">metrics</span> <span class="bracket">}</span><span class="bracket">)</span> <span class="operator">=&gt;</span> <span class="bracket">{</span></span>
+<span class="code-line">  <span class="keyword">const</span> <span class="bracket">[</span><span class="variable">loading</span><span class="operator">,</span> <span class="variable">setLoading</span><span class="bracket">]</span> <span class="operator">=</span> <span class="function">useState</span><span class="bracket">(</span><span class="keyword">false</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="keyword">const</span> <span class="bracket">[</span><span class="variable">data</span><span class="operator">,</span> <span class="variable">setData</span><span class="bracket">]</span> <span class="operator">=</span> <span class="function">useState</span><span class="bracket">(</span><span class="keyword">null</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  </span>
+<span class="code-line">  <span class="comment">// Memoização para performance</span></span>
+<span class="code-line">  <span class="keyword">const</span> <span class="variable">memoizedMetrics</span> <span class="operator">=</span> <span class="function">useMemo</span><span class="bracket">(</span><span class="bracket">(</span><span class="bracket">)</span> <span class="operator">=&gt;</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="keyword">return</span> <span class="function">processMetrics</span><span class="bracket">(</span><span class="variable">metrics</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span><span class="operator">,</span> <span class="bracket">[</span><span class="variable">metrics</span><span class="bracket">]</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  </span>
+<span class="code-line">  <span class="function">useEffect</span><span class="bracket">(</span><span class="bracket">(</span><span class="bracket">)</span> <span class="operator">=&gt;</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="function">fetchUserData</span><span class="bracket">(</span><span class="variable">user</span><span class="operator">.</span><span class="variable">id</span><span class="bracket">)</span></span>
+<span class="code-line">      <span class="operator">.</span><span class="function">then</span><span class="bracket">(</span><span class="variable">setData</span><span class="bracket">)</span></span>
+<span class="code-line">      <span class="operator">.</span><span class="function">catch</span><span class="bracket">(</span><span class="variable">handleError</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span><span class="operator">,</span> <span class="bracket">[</span><span class="variable">user</span><span class="operator">.</span><span class="variable">id</span><span class="bracket">]</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  </span>
+<span class="code-line">  <span class="keyword">return</span> <span class="bracket">(</span></span>
+<span class="code-line">    <span class="operator">&lt;</span><span class="function">div</span> <span class="variable">className</span><span class="operator">=</span><span class="string">"dashboard"</span><span class="operator">&gt;</span></span>
+<span class="code-line">      <span class="operator">&lt;</span><span class="function">Header</span> <span class="variable">user</span><span class="operator">=</span><span class="bracket">{</span><span class="variable">user</span><span class="bracket">}</span> <span class="operator">/&gt;</span></span>
+<span class="code-line">      <span class="operator">&lt;</span><span class="function">MetricsGrid</span> <span class="variable">metrics</span><span class="operator">=</span><span class="bracket">{</span><span class="variable">memoizedMetrics</span><span class="bracket">}</span> <span class="operator">/&gt;</span></span>
+<span class="code-line">      <span class="operator">&lt;</span><span class="function">DataVisualization</span> <span class="variable">data</span><span class="operator">=</span><span class="bracket">{</span><span class="variable">data</span><span class="bracket">}</span> <span class="operator">/&gt;</span></span>
+<span class="code-line">    <span class="operator">&lt;/</span><span class="function">div</span><span class="operator">&gt;</span></span>
+<span class="code-line">  <span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line"><span class="bracket">}</span><span class="operator">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="comment">// ✨ Clean, testable, performant</span></span></code></pre>
+                            </div>
+                            <div class="code-preview">
+                                <div class="execution-indicator"></div>
+                                <div class="preview-content">
+                                    <div class="mock-dashboard">
+                                        <div class="mock-header">👤 User Dashboard</div>
+                                        <div class="mock-metrics">
+                                            <div class="mock-card">📈 Revenue: $12,450</div>
+                                            <div class="mock-card">👥 Users: 2,347</div>
+                                            <div class="mock-card">⚡ Performance: 98.5%</div>
+                                        </div>
+                                    </div>
+                                    <div class="demo-features">
+                                        <h4>💡 Features Implementadas</h4>
+                                        <div class="feature-grid">
+                                            <div class="feature-item active">
+                                                <div class="feature-icon">🔥</div>
+                                                <div class="feature-name">Hot Reload</div>
+                                            </div>
+                                            <div class="feature-item">
+                                                <div class="feature-icon">⚡</div>
+                                                <div class="feature-name">Lazy Loading</div>
+                                            </div>
+                                            <div class="feature-item">
+                                                <div class="feature-icon">📊</div>
+                                                <div class="feature-name">Real-time Data</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel" id="api-demo">
+                        <div class="code-editor-container">
+                            <div class="code-editor">
+                                <div class="typing-indicator"></div>
+                                <pre><code class="language-javascript"><span class="code-line"><span class="comment">// API RESTful com validação e middleware</span></span>
+<span class="code-line"><span class="variable">app</span><span class="operator">.</span><span class="function">post</span><span class="bracket">(</span><span class="string">'/api/users'</span><span class="operator">,</span> <span class="bracket">[</span></span>
+<span class="code-line">  <span class="function">validateSchema</span><span class="bracket">(</span><span class="variable">userSchema</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">  <span class="function">rateLimiter</span><span class="bracket">(</span><span class="number">100</span><span class="operator">,</span> <span class="string">'hour'</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">  <span class="variable">authenticate</span><span class="operator">,</span></span>
+<span class="code-line">  <span class="function">corsMiddleware</span><span class="bracket">(</span><span class="bracket">)</span></span>
+<span class="code-line"><span class="bracket">]</span><span class="operator">,</span> <span class="keyword">async</span> <span class="bracket">(</span><span class="variable">req</span><span class="operator">,</span> <span class="variable">res</span><span class="bracket">)</span> <span class="operator">=&gt;</span> <span class="bracket">{</span></span>
+<span class="code-line">  <span class="keyword">try</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="comment">// Validação de entrada</span></span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">sanitizedData</span> <span class="operator">=</span> <span class="function">sanitize</span><span class="bracket">(</span><span class="variable">req</span><span class="operator">.</span><span class="variable">body</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="comment">// Criação do usuário</span></span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">await</span> <span class="variable">UserService</span><span class="operator">.</span><span class="function">create</span><span class="bracket">(</span><span class="bracket">{</span></span>
+<span class="code-line">      <span class="operator">...</span><span class="variable">sanitizedData</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">createdBy</span><span class="operator">:</span> <span class="variable">req</span><span class="operator">.</span><span class="variable">user</span><span class="operator">.</span><span class="variable">id</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">ipAddress</span><span class="operator">:</span> <span class="function">getClientIP</span><span class="bracket">(</span><span class="variable">req</span><span class="bracket">)</span></span>
+<span class="code-line">    <span class="bracket">}</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="comment">// Processos assíncronos</span></span>
+<span class="code-line">    <span class="keyword">await</span> <span class="variable">Promise</span><span class="operator">.</span><span class="function">all</span><span class="bracket">(</span><span class="bracket">[</span></span>
+<span class="code-line">      <span class="function">sendWelcomeEmail</span><span class="bracket">(</span><span class="variable">user</span><span class="operator">.</span><span class="variable">email</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="function">logUserActivity</span><span class="bracket">(</span><span class="variable">user</span><span class="operator">.</span><span class="variable">id</span><span class="operator">,</span> <span class="string">'account_created'</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="function">updateAnalytics</span><span class="bracket">(</span><span class="string">'user_signup'</span><span class="bracket">)</span></span>
+<span class="code-line">    <span class="bracket">]</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="variable">res</span><span class="operator">.</span><span class="function">status</span><span class="bracket">(</span><span class="number">201</span><span class="bracket">)</span><span class="operator">.</span><span class="function">json</span><span class="bracket">(</span><span class="bracket">{</span></span>
+<span class="code-line">      <span class="variable">success</span><span class="operator">:</span> <span class="keyword">true</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">data</span><span class="operator">:</span> <span class="function">sanitizeOutput</span><span class="bracket">(</span><span class="variable">user</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">message</span><span class="operator">:</span> <span class="string">'User created successfully'</span></span>
+<span class="code-line">    <span class="bracket">}</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span> <span class="keyword">catch</span> <span class="bracket">(</span><span class="variable">error</span><span class="bracket">)</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="function">handleApiError</span><span class="bracket">(</span><span class="variable">error</span><span class="operator">,</span> <span class="variable">res</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span></span>
+<span class="code-line"><span class="bracket">}</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="comment">// 🔒 Secure, scalable, documented</span></span></code></pre>
+                            </div>
+                            <div class="code-preview">
+                                <div class="execution-indicator"></div>
+                                <div class="preview-content">
+                                    <pre class="json-response">{
+  "success": true,
+  "data": {
+    "id": "usr_123",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "status": "active"
+  },
+  "message": "User created successfully"
+}</pre>
+                                    <div class="live-terminal">
+                                        <div class="terminal-line show">POST /api/users - 201 Created</div>
+                                        <div class="terminal-line show">✓ Schema validation passed</div>
+                                        <div class="terminal-line show">✓ Rate limit check: 23/100 requests</div>
+                                        <div class="terminal-line show">✓ User authentication verified</div>
+                                        <div class="terminal-line show">✓ User created in database</div>
+                                        <div class="terminal-line show">✓ Welcome email queued</div>
+                                        <div class="terminal-line show">✓ Activity logged</div>
+                                        <div class="terminal-line show">Response time: 145ms<span class="terminal-cursor"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel" id="algorithm-demo">
+                        <div class="code-editor-container">
+                            <div class="code-editor">
+                                <pre><code class="language-javascript">// Algoritmo de busca otimizado
+class SmartSearch {
+  constructor(data) {
+    this.data = data;
+    this.index = this.buildIndex(data);
+  }
+  
+  search(query, options = {}) {
+    const { 
+      fuzzy = true, 
+      maxResults = 10,
+      fields = ['name', 'description']
+    } = options;
+    
+    return this.performSearch(query, {
+      fuzzy,
+      maxResults,
+      fields
+    }).sort((a, b) => b.score - a.score);
+  }
+  
+  buildIndex(data) {
+    // Implementação de índice invertido
+    return data.reduce((index, item) => {
+      // ... indexing logic
+    }, new Map());
+  }
+}
+
+// 🎯 Efficient, flexible, scalable</code></pre>
+                            </div>
+                            <div class="code-preview">
+                                <div class="preview-header">⚡ Performance</div>
+                                <div class="preview-content">
+                                    <div class="performance-metrics">
+                                        <div class="perf-metric">
+                                            <span class="perf-label">Search Speed</span>
+                                            <span class="perf-value">&lt; 10ms</span>
+                                        </div>
+                                        <div class="perf-metric">
+                                            <span class="perf-label">Accuracy</span>
+                                            <span class="perf-value">98.5%</span>
+                                        </div>
+                                        <div class="perf-metric">
+                                            <span class="perf-label">Memory Usage</span>
+                                            <span class="perf-value">Optimized</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel" id="ai-demo">
+                        <div class="code-editor-container">
+                            <div class="code-editor">
+                                <div class="typing-indicator"></div>
+                                <pre><code class="language-javascript"><span class="code-line"><span class="comment">// Integração com IA para automação inteligente</span></span>
+<span class="code-line"><span class="keyword">class</span> <span class="function">AIAssistant</span> <span class="bracket">{</span></span>
+<span class="code-line">  <span class="function">constructor</span><span class="bracket">(</span><span class="variable">apiKey</span><span class="bracket">)</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="keyword">this</span><span class="operator">.</span><span class="variable">openai</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="function">OpenAI</span><span class="bracket">(</span><span class="bracket">{</span> <span class="variable">apiKey</span> <span class="bracket">}</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    <span class="keyword">this</span><span class="operator">.</span><span class="variable">memory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="function">ConversationMemory</span><span class="bracket">(</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span></span>
+<span class="code-line">  </span>
+<span class="code-line">  <span class="keyword">async</span> <span class="function">generateCode</span><span class="bracket">(</span><span class="variable">prompt</span><span class="operator">,</span> <span class="variable">context</span><span class="bracket">)</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">systemPrompt</span> <span class="operator">=</span> <span class="string">`
+      Você é um assistente de programação especializado em:
+      - React/Next.js e TypeScript
+      - Clean Architecture e padrões de design
+      - Performance e otimização
+      - Testes e documentação
+    `</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">response</span> <span class="operator">=</span> <span class="keyword">await</span> <span class="keyword">this</span><span class="operator">.</span><span class="variable">openai</span><span class="operator">.</span><span class="variable">chat</span><span class="operator">.</span><span class="variable">completions</span><span class="operator">.</span><span class="function">create</span><span class="bracket">(</span><span class="bracket">{</span></span>
+<span class="code-line">      <span class="variable">model</span><span class="operator">:</span> <span class="string">'gpt-4'</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">messages</span><span class="operator">:</span> <span class="bracket">[</span></span>
+<span class="code-line">        <span class="bracket">{</span> <span class="variable">role</span><span class="operator">:</span> <span class="string">'system'</span><span class="operator">,</span> <span class="variable">content</span><span class="operator">:</span> <span class="variable">systemPrompt</span> <span class="bracket">}</span><span class="operator">,</span></span>
+<span class="code-line">        <span class="operator">...</span><span class="keyword">this</span><span class="operator">.</span><span class="variable">memory</span><span class="operator">.</span><span class="function">getContext</span><span class="bracket">(</span><span class="variable">context</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">        <span class="bracket">{</span> <span class="variable">role</span><span class="operator">:</span> <span class="string">'user'</span><span class="operator">,</span> <span class="variable">content</span><span class="operator">:</span> <span class="variable">prompt</span> <span class="bracket">}</span></span>
+<span class="code-line">      <span class="bracket">]</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">temperature</span><span class="operator">:</span> <span class="number">0.7</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">max_tokens</span><span class="operator">:</span> <span class="number">2000</span></span>
+<span class="code-line">    <span class="bracket">}</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">generatedCode</span> <span class="operator">=</span> <span class="variable">response</span><span class="operator">.</span><span class="variable">choices</span><span class="bracket">[</span><span class="number">0</span><span class="bracket">]</span><span class="operator">.</span><span class="variable">message</span><span class="operator">.</span><span class="variable">content</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="comment">// Validação e otimização automática</span></span>
+<span class="code-line">    <span class="keyword">const</span> <span class="variable">optimizedCode</span> <span class="operator">=</span> <span class="keyword">await</span> <span class="keyword">this</span><span class="operator">.</span><span class="function">optimizeCode</span><span class="bracket">(</span><span class="variable">generatedCode</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">    </span>
+<span class="code-line">    <span class="keyword">return</span> <span class="bracket">{</span></span>
+<span class="code-line">      <span class="variable">code</span><span class="operator">:</span> <span class="variable">optimizedCode</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">tests</span><span class="operator">:</span> <span class="keyword">await</span> <span class="keyword">this</span><span class="operator">.</span><span class="function">generateTests</span><span class="bracket">(</span><span class="variable">optimizedCode</span><span class="bracket">)</span><span class="operator">,</span></span>
+<span class="code-line">      <span class="variable">docs</span><span class="operator">:</span> <span class="keyword">await</span> <span class="keyword">this</span><span class="operator">.</span><span class="function">generateDocs</span><span class="bracket">(</span><span class="variable">optimizedCode</span><span class="bracket">)</span></span>
+<span class="code-line">    <span class="bracket">}</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span></span>
+<span class="code-line">  </span>
+<span class="code-line">  <span class="keyword">async</span> <span class="function">codeReview</span><span class="bracket">(</span><span class="variable">code</span><span class="bracket">)</span> <span class="bracket">{</span></span>
+<span class="code-line">    <span class="comment">// Análise automática de código</span></span>
+<span class="code-line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">this</span><span class="operator">.</span><span class="function">analyzeCode</span><span class="bracket">(</span><span class="variable">code</span><span class="bracket">)</span><span class="operator">;</span></span>
+<span class="code-line">  <span class="bracket">}</span></span>
+<span class="code-line"><span class="bracket">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="comment">// 🤖 Intelligent, automated, scalable</span></span></code></pre>
+                            </div>
+                            <div class="code-preview">
+                                <div class="execution-indicator"></div>
+                                <div class="preview-content">
+                                    <div class="live-terminal">
+                                        <div class="terminal-line show">🤖 AI Assistant initialized</div>
+                                        <div class="terminal-line show">📝 Prompt: "Create a React component for user authentication"</div>
+                                        <div class="terminal-line show">🔄 Generating code...</div>
+                                        <div class="terminal-line show">✓ Generated 45 lines of TypeScript React code</div>
+                                        <div class="terminal-line show">🔧 Optimizing for performance...</div>
+                                        <div class="terminal-line show">✓ Applied memoization and lazy loading</div>
+                                        <div class="terminal-line show">🧪 Generating unit tests...</div>
+                                        <div class="terminal-line show">✓ Created 12 test cases with 95% coverage</div>
+                                        <div class="terminal-line show">📖 Generating documentation...</div>
+                                        <div class="terminal-line show">✓ Complete with JSDoc and usage examples</div>
+                                        <div class="terminal-line show">🔍 Running code review...</div>
+                                        <div class="terminal-line show">✓ All quality checks passed</div>
+                                        <div class="terminal-line show">⚡ Total generation time: 3.2s<span class="terminal-cursor"></span></div>
+                                    </div>
+                                    <div class="demo-features">
+                                        <h4>🚀 AI Capabilities</h4>
+                                        <div class="feature-grid">
+                                            <div class="feature-item active">
+                                                <div class="feature-icon">💭</div>
+                                                <div class="feature-name">Context Aware</div>
+                                            </div>
+                                            <div class="feature-item">
+                                                <div class="feature-icon">🔧</div>
+                                                <div class="feature-name">Auto Optimize</div>
+                                            </div>
+                                            <div class="feature-item">
+                                                <div class="feature-icon">🧪</div>
+                                                <div class="feature-name">Test Generation</div>
+                                            </div>
+                                            <div class="feature-item">
+                                                <div class="feature-icon">📚</div>
+                                                <div class="feature-name">Documentation</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="code-playground-content">
-                    <textarea class="code-editor" id="codeEditor" placeholder="// Digite seu código JavaScript aqui...
-// Exemplos disponíveis:
-// - Algoritmos de ordenação
-// - Manipulação de dados
-// - Funções matemáticas
-// - Padrões de design
-
-const exemplo = () => {
-  console.log('Olá! Teste meu código aqui.');
-  return 'Funcionando perfeitamente!';
-};
-
-exemplo();"></textarea>
-                    <div class="code-output" id="codeOutput">// Resultado aparecerá aqui...
-// Clique em "▶️ Executar" para testar o código</div>
+            </div>
+            
+            <!-- Technology Stack Visualization -->
+            <div class="tech-stack-showcase">
+                <h3>🛠️ Stack Tecnológico</h3>
+                <div class="tech-layers">
+                    <div class="tech-layer" data-layer="frontend">
+                        <div class="layer-label">Frontend</div>
+                        <div class="layer-techs">
+                            <div class="tech-item">React</div>
+                            <div class="tech-item">Next.js</div>
+                            <div class="tech-item">TypeScript</div>
+                            <div class="tech-item">Tailwind</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-layer" data-layer="backend">
+                        <div class="layer-label">Backend</div>
+                        <div class="layer-techs">
+                            <div class="tech-item">Node.js</div>
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">GraphQL</div>
+                            <div class="tech-item">REST API</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-layer" data-layer="database">
+                        <div class="layer-label">Database</div>
+                        <div class="layer-techs">
+                            <div class="tech-item">PostgreSQL</div>
+                            <div class="tech-item">MongoDB</div>
+                            <div class="tech-item">Redis</div>
+                            <div class="tech-item">Prisma</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-layer" data-layer="devops">
+                        <div class="layer-label">DevOps</div>
+                        <div class="layer-techs">
+                            <div class="tech-item">Docker</div>
+                            <div class="tech-item">AWS</div>
+                            <div class="tech-item">CI/CD</div>
+                            <div class="tech-item">Monitoring</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1354,42 +3194,136 @@ exemplo();"></textarea>
     <section id="resultados">
         <div class="container">
             <h2 class="section-title">Resultados Comprovados</h2>
-            <div class="metrics">
-                <div class="metric-card">
-                    <span class="metric-number">8+</span>
-                    <span class="metric-label">Anos de Experiência</span>
+            <p class="section-subtitle">Dados reais que demonstram o impacto dos meus projetos</p>
+            
+            <!-- Enhanced Metrics with Data Storytelling -->
+            <div class="metrics-enhanced">
+                <div class="metric-card-enhanced">
+                    <div class="metric-icon">📈</div>
+                    <div class="metric-content">
+                        <div class="metric-number">8+</div>
+                        <div class="metric-label">Anos de Experiência</div>
+                        <div class="metric-progress">
+                            <div class="progress-bar" data-width="80"></div>
+                        </div>
+                        <div class="metric-story">Desde 2016 desenvolvendo soluções que transformam negócios</div>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-number">50+</span>
-                    <span class="metric-label">Projetos Entregues</span>
+                
+                <div class="metric-card-enhanced">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-content">
+                        <div class="metric-number">50+</div>
+                        <div class="metric-label">Projetos Entregues</div>
+                        <div class="metric-progress">
+                            <div class="progress-bar" data-width="95"></div>
+                        </div>
+                        <div class="metric-story">Do e-commerce ao SaaS, cada projeto com resultado measurável</div>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-number">1000+</span>
-                    <span class="metric-label">Usuários Atendidos</span>
+                
+                <div class="metric-card-enhanced">
+                    <div class="metric-icon">👥</div>
+                    <div class="metric-content">
+                        <div class="metric-number">1000+</div>
+                        <div class="metric-label">Usuários Atendidos</div>
+                        <div class="metric-progress">
+                            <div class="progress-bar" data-width="100"></div>
+                        </div>
+                        <div class="metric-story">Aplicações escaláveis que crescem junto com o negócio</div>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-number">99%</span>
-                    <span class="metric-label">Satisfação dos Clientes</span>
+                
+                <div class="metric-card-enhanced">
+                    <div class="metric-icon">⭐</div>
+                    <div class="metric-content">
+                        <div class="metric-number">99%</div>
+                        <div class="metric-label">Satisfação dos Clientes</div>
+                        <div class="metric-progress">
+                            <div class="progress-bar" data-width="99"></div>
+                        </div>
+                        <div class="metric-story">Comunicação clara e entregas pontuais garantem sucesso</div>
+                    </div>
                 </div>
             </div>
-            <div class="glass-card mt-2">
-                <h3 class="text-center mb-2">Diferenciais Técnicos</h3>
-                <div class="skills-grid">
-                    <div style="text-align: center;">
-                        <h4>🚀 Performance</h4>
-                        <p>Aplicações com carregamento < 2s</p>
+            
+            <!-- Achievement Timeline -->
+            <div class="achievement-timeline">
+                <h3 class="achievements-title">Marcos Importantes</h3>
+                <div class="achievements-grid">
+                    <div class="achievement-item">
+                        <div class="achievement-year">2024</div>
+                        <div class="achievement-content">
+                            <h4>🚀 Especialização em IA</h4>
+                            <p>Integração de soluções de inteligência artificial em projetos</p>
+                        </div>
                     </div>
-                    <div style="text-align: center;">
-                        <h4>📱 Responsividade</h4>
-                        <p>Interface perfeita em todos os dispositivos</p>
+                    <div class="achievement-item">
+                        <div class="achievement-year">2022</div>
+                        <div class="achievement-content">
+                            <h4>📱 Foco em Mobile-First</h4>
+                            <p>Transição para desenvolvimento mobile-first e PWAs</p>
+                        </div>
                     </div>
-                    <div style="text-align: center;">
-                        <h4>🔒 Segurança</h4>
-                        <p>Código auditado e práticas de segurança</p>
+                    <div class="achievement-item">
+                        <div class="achievement-year">2020</div>
+                        <div class="achievement-content">
+                            <h4>☁️ Cloud Native</h4>
+                            <p>Migração para arquiteturas cloud-native e microserviços</p>
+                        </div>
                     </div>
-                    <div style="text-align: center;">
-                        <h4>🎯 Precisão</h4>
-                        <p>Entrega exata do que foi solicitado</p>
+                    <div class="achievement-item">
+                        <div class="achievement-year">2016</div>
+                        <div class="achievement-content">
+                            <h4>🎯 Início da Jornada</h4>
+                            <p>Primeiros projetos fullstack profissionais</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="performance-showcase">
+                <h3 class="showcase-title">Performance em Números</h3>
+                <div class="performance-grid">
+                    <div class="performance-card">
+                        <div class="perf-icon">⚡</div>
+                        <div class="perf-metric">
+                            <span class="perf-number">< 2s</span>
+                            <span class="perf-label">Tempo de Carregamento</span>
+                            <span class="perf-description">Otimização avançada para experiência lightning-fast</span>
+                        </div>
+                        <div class="perf-status excellent">Excelente</div>
+                    </div>
+                    
+                    <div class="performance-card">
+                        <div class="perf-icon">📊</div>
+                        <div class="perf-metric">
+                            <span class="perf-number">95+</span>
+                            <span class="perf-label">Lighthouse Score</span>
+                            <span class="perf-description">Performance, SEO e acessibilidade de alto nível</span>
+                        </div>
+                        <div class="perf-status excellent">Excelente</div>
+                    </div>
+                    
+                    <div class="performance-card">
+                        <div class="perf-icon">🎯</div>
+                        <div class="perf-metric">
+                            <span class="perf-number">100%</span>
+                            <span class="perf-label">Entregas no Prazo</span>
+                            <span class="perf-description">Compromisso total com prazos acordados</span>
+                        </div>
+                        <div class="perf-status perfect">Perfeito</div>
+                    </div>
+                    
+                    <div class="performance-card">
+                        <div class="perf-icon">🔧</div>
+                        <div class="perf-metric">
+                            <span class="perf-number">24h</span>
+                            <span class="perf-label">Tempo de Resposta</span>
+                            <span class="perf-description">Comunicação ágil e suporte contínuo</span>
+                        </div>
+                        <div class="perf-status good">Muito Bom</div>
                     </div>
                 </div>
             </div>
@@ -1488,8 +3422,136 @@ exemplo();"></textarea>
         }, observerOptions);
         
         // Observar elementos para animação
-        document.querySelectorAll('.timeline-item, .skill-card, .metric-card, .glass-card').forEach(el => {
+        document.querySelectorAll('.timeline-item, .skill-card, .metric-card, .glass-card, .process-step').forEach(el => {
             observer.observe(el);
+        });
+        
+        // Enhanced Demo Tab Functionality
+        const demoTabs = document.querySelectorAll('.demo-tab');
+        const demoPanels = document.querySelectorAll('.demo-panel');
+        
+        demoTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all tabs and panels
+                demoTabs.forEach(t => t.classList.remove('active'));
+                demoPanels.forEach(p => {
+                    p.classList.remove('active', 'entered');
+                    p.style.position = 'absolute';
+                    p.style.visibility = 'hidden';
+                });
+                
+                // Add active to clicked tab with animation
+                tab.classList.add('active');
+                
+                // Show corresponding panel with enhanced animation
+                const targetDemo = tab.getAttribute('data-demo');
+                const targetPanel = document.getElementById(targetDemo + '-demo');
+                if (targetPanel) {
+                    // Enhanced panel transition
+                    setTimeout(() => {
+                        targetPanel.classList.add('active', 'entered');
+                        targetPanel.style.position = 'relative';
+                        targetPanel.style.visibility = 'visible';
+                        
+                        // Trigger typing animation for code editor
+                        simulateTyping(targetPanel);
+                        
+                        // Trigger execution animation
+                        simulateExecution(targetPanel);
+                    }, 50);
+                }
+            });
+        });
+        
+        // Simulate typing animation
+        function simulateTyping(panel) {
+            const typingIndicator = panel.querySelector('.typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.style.opacity = '1';
+                setTimeout(() => {
+                    typingIndicator.style.opacity = '0.3';
+                }, 2000);
+            }
+        }
+        
+        // Simulate code execution
+        function simulateExecution(panel) {
+            const executionIndicator = panel.querySelector('.execution-indicator');
+            const terminalLines = panel.querySelectorAll('.terminal-line');
+            
+            if (executionIndicator) {
+                executionIndicator.style.opacity = '1';
+            }
+            
+            // Reset terminal lines
+            terminalLines.forEach(line => {
+                line.classList.remove('show');
+                line.style.opacity = '0';
+            });
+            
+            // Animate terminal lines with staggered delay
+            terminalLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('show');
+                    line.style.opacity = '1';
+                    line.style.animation = 'typewriter 0.5s ease-out';
+                }, index * 200);
+            });
+        }
+        
+        // Interactive feature items
+        const featureItems = document.querySelectorAll('.feature-item');
+        featureItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active from siblings
+                const siblings = item.parentElement.querySelectorAll('.feature-item');
+                siblings.forEach(sibling => sibling.classList.remove('active'));
+                
+                // Add active to clicked item
+                item.classList.add('active');
+                
+                // Trigger feature demonstration
+                const featureName = item.querySelector('.feature-name').textContent;
+                showFeatureDemo(featureName);
+            });
+        });
+        
+        // Show feature demonstration
+        function showFeatureDemo(featureName) {
+            console.log(`Demonstrating feature: ${featureName}`);
+            // Could add specific feature demos here
+        }
+        
+        // Initialize demo sections
+        function initializeDemoSections() {
+            // Ensure proper positioning for all demo panels
+            const demoPanels = document.querySelectorAll('.demo-panel');
+            demoPanels.forEach(panel => {
+                if (panel.classList.contains('active')) {
+                    panel.style.position = 'relative';
+                    panel.style.visibility = 'visible';
+                    // Show terminal lines in the active demo panel
+                    const terminalLines = panel.querySelectorAll('.terminal-line.show');
+                    terminalLines.forEach(line => {
+                        line.style.opacity = '1';
+                    });
+                } else {
+                    panel.style.position = 'absolute';
+                    panel.style.visibility = 'hidden';
+                }
+            });
+        }
+        
+        // Tech Layer Hover Effects
+        const techLayers = document.querySelectorAll('.tech-layer');
+        techLayers.forEach(layer => {
+            layer.addEventListener('mouseenter', () => {
+                layer.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            layer.addEventListener('mouseleave', () => {
+                layer.style.transform = 'translateY(0) scale(1)';
+            });
         });
         
         // Navigation System
@@ -1503,9 +3565,12 @@ exemplo();"></textarea>
                 this.sections = document.querySelectorAll('section');
                 this.isNavOpen = false;
                 
-                this.setupEventListeners();
-                this.setupScrollObserver();
-                this.setupScrollToTop();
+                // Only setup if navigation elements exist
+                if (this.navToggle && this.floatingNav) {
+                    this.setupEventListeners();
+                    this.setupScrollObserver();
+                    this.setupScrollToTop();
+                }
             }
             
             setupEventListeners() {
@@ -1534,7 +3599,8 @@ exemplo();"></textarea>
                 
                 // Close nav on outside click
                 document.addEventListener('click', (e) => {
-                    if (!this.floatingNav.contains(e.target) && !this.navToggle.contains(e.target)) {
+                    if (this.floatingNav && this.navToggle && 
+                        !this.floatingNav.contains(e.target) && !this.navToggle.contains(e.target)) {
                         this.closeNav();
                     }
                 });
@@ -1542,14 +3608,14 @@ exemplo();"></textarea>
             
             toggleNav() {
                 this.isNavOpen = !this.isNavOpen;
-                this.navToggle.classList.toggle('active', this.isNavOpen);
-                this.floatingNav.classList.toggle('visible', this.isNavOpen);
+                if (this.navToggle) this.navToggle.classList.toggle('active', this.isNavOpen);
+                if (this.floatingNav) this.floatingNav.classList.toggle('visible', this.isNavOpen);
             }
             
             closeNav() {
                 this.isNavOpen = false;
-                this.navToggle.classList.remove('active');
-                this.floatingNav.classList.remove('visible');
+                if (this.navToggle) this.navToggle.classList.remove('active');
+                if (this.floatingNav) this.floatingNav.classList.remove('visible');
             }
             
             scrollToSection(target) {
@@ -1604,11 +3670,13 @@ exemplo();"></textarea>
                 window.addEventListener('scroll', () => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    // Show/hide scroll to top button
-                    if (scrollTop > 500) {
-                        this.scrollTopBtn.classList.remove('hidden');
-                    } else {
-                        this.scrollTopBtn.classList.add('hidden');
+                    // Show/hide scroll to top button (only if element exists)
+                    if (this.scrollTopBtn) {
+                        if (scrollTop > 500) {
+                            this.scrollTopBtn.classList.remove('hidden');
+                        } else {
+                            this.scrollTopBtn.classList.add('hidden');
+                        }
                     }
                     
                     lastScrollTop = scrollTop;
@@ -1620,12 +3688,14 @@ exemplo();"></textarea>
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key === 'D') {
                 e.preventDefault();
-                document.getElementById('easterEgg').classList.add('show');
+                const easterEgg = document.getElementById('easterEgg');
+                if (easterEgg) easterEgg.classList.add('show');
             }
         });
         
         function closeEasterEgg() {
-            document.getElementById('easterEgg').classList.remove('show');
+            const easterEgg = document.getElementById('easterEgg');
+            if (easterEgg) easterEgg.classList.remove('show');
         }
         
         // Smooth scroll para links internos
@@ -1661,18 +3731,35 @@ exemplo();"></textarea>
                 }, 20);
             });
         }
+
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                if (width) {
+                    setTimeout(() => {
+                        bar.style.width = width + '%';
+                    }, 300);
+                }
+            });
+        }
+
+        function animateResultsSection() {
+            animateNumbers();
+            animateProgressBars();
+        }
         
         // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
             
-            // Animar números quando a seção de resultados estiver visível
+            // Animar seção de resultados quando estiver visível
             const resultsSection = document.querySelector('#resultados');
             if (resultsSection) {
                 const resultsObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            animateNumbers();
+                            animateResultsSection();
                             resultsObserver.unobserve(entry.target);
                         }
                     });
@@ -1697,168 +3784,14 @@ exemplo();"></textarea>
             if (e.ctrlKey && e.shiftKey && e.key === 'D') {
                 clearTimeout(easterEggTimeout);
                 easterEggTimeout = setTimeout(() => {
-                    document.getElementById('easterEgg').classList.remove('show');
+                    const easterEgg = document.getElementById('easterEgg');
+                    if (easterEgg) easterEgg.classList.remove('show');
                 }, 5000);
             }
         });
         
         
-        // Interactive Code Playground
-        class CodePlayground {
-            constructor() {
-                this.editor = document.getElementById('codeEditor');
-                this.output = document.getElementById('codeOutput');
-                this.setupEventListeners();
-            }
-            
-            setupEventListeners() {
-                // Auto-resize textarea
-                this.editor.addEventListener('input', () => {
-                    this.editor.style.height = 'auto';
-                    this.editor.style.height = this.editor.scrollHeight + 'px';
-                });
-                
-                // Keyboard shortcuts
-                this.editor.addEventListener('keydown', (e) => {
-                    if (e.ctrlKey && e.key === 'Enter') {
-                        e.preventDefault();
-                        this.runCode();
-                    }
-                });
-            }
-            
-            runCode() {
-                const code = this.editor.value;
-                this.output.className = 'code-output';
-                
-                try {
-                    // Capture console output
-                    const logs = [];
-                    const originalLog = console.log;
-                    const originalError = console.error;
-                    const originalWarn = console.warn;
-                    
-                    console.log = (...args) => {
-                        logs.push('📄 ' + args.join(' '));
-                        originalLog(...args);
-                    };
-                    
-                    console.error = (...args) => {
-                        logs.push('❌ ' + args.join(' '));
-                        originalError(...args);
-                    };
-                    
-                    console.warn = (...args) => {
-                        logs.push('⚠️ ' + args.join(' '));
-                        originalWarn(...args);
-                    };
-                    
-                    // Execute code
-                    const result = eval(code);
-                    
-                    // Restore console
-                    console.log = originalLog;
-                    console.error = originalError;
-                    console.warn = originalWarn;
-                    
-                    // Display results
-                    let output = '';
-                    if (logs.length > 0) {
-                        output += logs.join('\\n') + '\\n\\n';
-                    }
-                    if (result !== undefined) {
-                        output += '✅ Resultado: ' + JSON.stringify(result, null, 2);
-                    }
-                    
-                    this.output.textContent = output || '✅ Código executado com sucesso!';
-                    
-                    // Update interactions counter
-                    this.updateInteractionsCounter();
-                    
-                } catch (error) {
-                    this.output.className = 'code-output error';
-                    this.output.textContent = '❌ Erro: ' + error.message;
-                }
-            }
-            
-            clearCode() {
-                this.editor.value = '';
-                this.output.textContent = '// Resultado aparecerá aqui...';
-                this.output.className = 'code-output';
-            }
-            
-            loadExample() {
-                const examples = [
-                    `// Algoritmo de ordenação Quick Sort
-function quickSort(arr) {
-    if (arr.length <= 1) return arr;
-    
-    const pivot = arr[Math.floor(arr.length / 2)];
-    const left = arr.filter(x => x < pivot);
-    const middle = arr.filter(x => x === pivot);
-    const right = arr.filter(x => x > pivot);
-    
-    return [...quickSort(left), ...middle, ...quickSort(right)];
-}
-
-const numbers = [64, 34, 25, 12, 22, 11, 90];
-console.log('Array original:', numbers);
-console.log('Array ordenado:', quickSort(numbers));`,
-                    
-                    `// Padrão Observer para gerenciamento de estado
-class EventEmitter {
-    constructor() {
-        this.events = {};
-    }
-    
-    on(event, callback) {
-        if (!this.events[event]) {
-            this.events[event] = [];
-        }
-        this.events[event].push(callback);
-    }
-    
-    emit(event, data) {
-        if (this.events[event]) {
-            this.events[event].forEach(callback => callback(data));
-        }
-    }
-}
-
-const emitter = new EventEmitter();
-emitter.on('user-action', (data) => console.log('Ação do usuário:', data));
-emitter.emit('user-action', { type: 'click', element: 'button' });`,
-                    
-                    `// Função para calcular fibonacci com memoização
-function fibonacci(n, memo = {}) {
-    if (n in memo) return memo[n];
-    if (n <= 2) return 1;
-    
-    memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
-    return memo[n];
-}
-
-// Teste de performance
-const start = performance.now();
-const result = fibonacci(40);
-const end = performance.now();
-
-console.log('Fibonacci(40):', result);
-console.log('Tempo de execução:', (end - start).toFixed(2) + 'ms');`
-                ];
-                
-                const randomExample = examples[Math.floor(Math.random() * examples.length)];
-                this.editor.value = randomExample;
-                this.editor.style.height = 'auto';
-                this.editor.style.height = this.editor.scrollHeight + 'px';
-            }
-            
-            updateInteractionsCounter() {
-                const counter = document.getElementById('interactions-metric');
-                const current = parseInt(counter.textContent) || 0;
-                counter.textContent = current + 1;
-            }
-        }
+        // Removed problematic CodePlayground class
         
         // Performance Metrics Dashboard
         class PerformanceMonitor {
@@ -1920,159 +3853,19 @@ console.log('Tempo de execução:', (end - start).toFixed(2) + 'ms');`
             }
             
             updateDisplay() {
-                document.getElementById('fps-metric').textContent = this.metrics.fps;
-                document.getElementById('memory-metric').textContent = this.metrics.memory || '--';
-                document.getElementById('load-time-metric').textContent = this.metrics.loadTime || '--';
+                // Only update if elements exist
+                const fpsElement = document.getElementById('fps-metric');
+                const memoryElement = document.getElementById('memory-metric');
+                const loadTimeElement = document.getElementById('load-time-metric');
+                
+                if (fpsElement) fpsElement.textContent = this.metrics.fps;
+                if (memoryElement) memoryElement.textContent = this.metrics.memory || '--';
+                if (loadTimeElement) loadTimeElement.textContent = this.metrics.loadTime || '--';
             }
         }
         
         
-        // Gesture Recognition System
-        class GestureRecognizer {
-            constructor() {
-                this.startPoint = null;
-                this.currentPoint = null;
-                this.isTracking = false;
-                this.gestures = {
-                    swipeLeft: () => this.showGestureFeedback('Swipe Left - Seção Anterior'),
-                    swipeRight: () => this.showGestureFeedback('Swipe Right - Próxima Seção'),
-                    swipeUp: () => this.showGestureFeedback('Swipe Up - Topo da Página'),
-                    swipeDown: () => this.showGestureFeedback('Swipe Down - Fim da Página'),
-                    pinch: () => this.showGestureFeedback('Pinch - Zoom'),
-                    spread: () => this.showGestureFeedback('Spread - Zoom Out')
-                };
-                this.setupEventListeners();
-            }
-            
-            setupEventListeners() {
-                // Touch events
-                document.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
-                document.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
-                document.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
-                
-                // Mouse events for desktop
-                document.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-                document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-                document.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-                
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
-            }
-            
-            handleTouchStart(e) {
-                if (e.touches.length === 1) {
-                    this.startPoint = {
-                        x: e.touches[0].clientX,
-                        y: e.touches[0].clientY,
-                        time: Date.now()
-                    };
-                    this.isTracking = true;
-                }
-            }
-            
-            handleTouchMove(e) {
-                if (this.isTracking && e.touches.length === 1) {
-                    this.currentPoint = {
-                        x: e.touches[0].clientX,
-                        y: e.touches[0].clientY
-                    };
-                }
-            }
-            
-            handleTouchEnd(e) {
-                if (this.isTracking && this.startPoint && this.currentPoint) {
-                    this.processGesture();
-                }
-                this.reset();
-            }
-            
-            handleMouseDown(e) {
-                this.startPoint = {
-                    x: e.clientX,
-                    y: e.clientY,
-                    time: Date.now()
-                };
-                this.isTracking = true;
-            }
-            
-            handleMouseMove(e) {
-                if (this.isTracking) {
-                    this.currentPoint = {
-                        x: e.clientX,
-                        y: e.clientY
-                    };
-                }
-            }
-            
-            handleMouseUp(e) {
-                if (this.isTracking && this.startPoint && this.currentPoint) {
-                    this.processGesture();
-                }
-                this.reset();
-            }
-            
-            handleKeyDown(e) {
-                // Keyboard shortcuts for accessibility
-                if (e.altKey) {
-                    switch(e.key) {
-                        case 'ArrowLeft':
-                            this.gestures.swipeLeft();
-                            break;
-                        case 'ArrowRight':
-                            this.gestures.swipeRight();
-                            break;
-                        case 'ArrowUp':
-                            this.gestures.swipeUp();
-                            break;
-                        case 'ArrowDown':
-                            this.gestures.swipeDown();
-                            break;
-                    }
-                }
-            }
-            
-            processGesture() {
-                const deltaX = this.currentPoint.x - this.startPoint.x;
-                const deltaY = this.currentPoint.y - this.startPoint.y;
-                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                
-                if (distance < 50) return; // Too small to be a gesture
-                
-                const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
-                
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    // Horizontal swipe
-                    if (deltaX > 0) {
-                        this.gestures.swipeRight();
-                    } else {
-                        this.gestures.swipeLeft();
-                    }
-                } else {
-                    // Vertical swipe
-                    if (deltaY > 0) {
-                        this.gestures.swipeDown();
-                    } else {
-                        this.gestures.swipeUp();
-                    }
-                }
-            }
-            
-            showGestureFeedback(text) {
-                const feedback = document.getElementById('gestureFeedback');
-                feedback.textContent = text;
-                feedback.classList.add('show');
-                
-                setTimeout(() => {
-                    feedback.classList.remove('show');
-                }, 2000);
-            }
-            
-            reset() {
-                this.startPoint = null;
-                this.currentPoint = null;
-                this.isTracking = false;
-            }
-        }
+        // Gesture Recognition System removed
         
         
         // Global functions for HTML onclick events
@@ -2133,12 +3926,17 @@ console.log('Tempo de execução:', (end - start).toFixed(2) + 'ms');`
         
         // Initialize all advanced features
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize features
-            codePlayground = new CodePlayground();
-            const performanceMonitor = new PerformanceMonitor();
-            const gestureRecognizer = new GestureRecognizer();
-            const heroEnhancer = new HeroEnhancer();
-            const navigationSystem = new NavigationSystem();
+            // Initialize features with error handling
+            try {
+                const performanceMonitor = new PerformanceMonitor();
+                const heroEnhancer = new HeroEnhancer();
+                const navigationSystem = new NavigationSystem();
+                
+                // Initialize demo sections
+                initializeDemoSections();
+            } catch (error) {
+                console.log('Some advanced features could not be initialized:', error);
+            }
             
             // Advanced scroll effects
             const advancedScrollObserver = new IntersectionObserver((entries) => {
